@@ -19,7 +19,7 @@ class DishDetail extends Component{
 						<ul className="list-unstyled" key={cmnt.id}>
 							
 							<li>{cmnt.comment}</li>
-							<li> -- {cmnt.author} , {month[parseInt(cmnt.date.slice(5,7))-1]}  {("0"+(parseInt(cmnt.date.slice(8,10))+1).toString()).slice(-2)}, {cmnt.date.slice(0,4)} </li>
+							<li> -- {cmnt.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(cmnt.date)))} </li>
 
 						</ul>
 					);
