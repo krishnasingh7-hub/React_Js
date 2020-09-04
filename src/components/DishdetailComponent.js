@@ -1,17 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'reactstrap';
 
 
-class DishDetail extends Component{
 
-	constructor(props){
-		super(props)
-		this.state = {
-			
-		}
-	}
 
-	renderComments(showcomment){
+	function RenderComments({showcomment}){
 		console.log(showcomment)
 		const month = ['Jan','Feb','Mar','Apr','May','June','Jul','Aug','Sep','Oct','Nov','Dec']
 		const x = showcomment.map((cmnt)=>{
@@ -34,44 +27,49 @@ class DishDetail extends Component{
 			);
 	}
 
-    renderDish(dish) {
-        if (dish != null)
+    function RenderDish({Dish}) {
+    	console.log("inside RenderDish")
+        if (Dish != null){
+
             return(
 				<div className="row">
 				<div className="col-12 col-md-5 m-1">
                 <Card>
-                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardImg top src={Dish.image} alt={Dish.name} />
                     <CardBody>
-                      <CardTitle>{dish.name}</CardTitle>
-                      <CardText>{dish.description}</CardText>
+                      <CardTitle>{Dish.name}</CardTitle>
+                      <CardText>{Dish.description}</CardText>
                     </CardBody>
                 </Card>
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                	{this.renderComments(dish.comments)}
+                	<RenderComments showcomment={Dish.comments} />
                 </div>
                 </div>
 
 				
 
             );
-        else
+        }
+        else{
+        	console.log("inside RenderDish null")
             return(
                 <div></div>
             );
+        }
     }
 
 
-	render(){
-
+	const DishDetail = (props) => {
+		console.log(props.dishshow)
 		return(
 			<div className="container">
 
-				{this.renderDish(this.props.dishshow)}
+				<RenderDish Dish={props.dishshow} />
 				
 			</div> 
 		);
 	}
-}
+
 
 export default DishDetail;
