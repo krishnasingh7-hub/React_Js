@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'reactstrap';
-
+import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 
@@ -9,20 +9,20 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'rea
 		const month = ['Jan','Feb','Mar','Apr','May','June','Jul','Aug','Sep','Oct','Nov','Dec']
 		const x = showcomment.map((cmnt)=>{
 					return(
+                		
 						<ul className="list-unstyled" key={cmnt.id}>
 							
 							<li>{cmnt.comment}</li>
 							<li> -- {cmnt.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(cmnt.date)))} </li>
 
 						</ul>
+						
 					);
 				})
 		return(
-			<div>
+			<div className="col-12 col-md-5 m-1">
 				<h4>Comments</h4>
-				<div>
-					{x}
-				</div>
+				{x}
 			</div>
 			);
 	}
@@ -32,7 +32,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'rea
         if (Dish != null){
 
             return(
-				<div className="row">
+				
 				<div className="col-12 col-md-5 m-1">
                 <Card>
                     <CardImg top src={Dish.image} alt={Dish.name} />
@@ -42,12 +42,6 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'rea
                     </CardBody>
                 </Card>
                 </div>
-                <div className="col-12 col-md-5 m-1">
-                	<RenderComments showcomment={Dish.comments} />
-                </div>
-                </div>
-
-				
 
             );
         }
@@ -64,9 +58,20 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'rea
 		console.log(props.dishshow)
 		return(
 			<div className="container">
-
-				<RenderDish Dish={props.dishshow} />
-				
+	            <div className="row">
+	                <Breadcrumb>
+	                    <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+	                    <BreadcrumbItem active>{props.dishshow.name}</BreadcrumbItem>
+	                </Breadcrumb>
+	                <div className="col-12">
+	                    <h3>{props.dishshow.name}</h3>
+	                    <hr />
+	                </div>                
+	            </div>
+				<div className="row">
+					<RenderDish Dish={props.dishshow} />
+					<RenderComments showcomment={props.comments} />
+				</div>
 			</div> 
 		);
 	}
