@@ -28,7 +28,7 @@ class CommentForm extends Component{
 
 	handleSubmit(values) {
 		this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
 	}
 
 	render(){
@@ -92,7 +92,7 @@ class CommentForm extends Component{
 	}
 }
 
-	function RenderComments({showcomment,addComment, dishId}){
+	function RenderComments({showcomment,postComment, dishId}){
 		console.log(showcomment)
 		const month = ['Jan','Feb','Mar','Apr','May','June','Jul','Aug','Sep','Oct','Nov','Dec']
 		const x = showcomment.map((cmnt)=>{
@@ -111,7 +111,7 @@ class CommentForm extends Component{
 			<div className="col-12 col-md-5 m-1">
 				<h4>Comments</h4>
 				{x}
-				<CommentForm dishId={dishId} addComment={addComment} />
+				<CommentForm dishId={dishId} postComment={postComment} />
 			</div>
 			);
 	}
@@ -179,7 +179,7 @@ class CommentForm extends Component{
 					<div className="row">
 						<RenderDish Dish={props.dishshow} />
 						<RenderComments showcomment={props.comments} 
-										addComment={props.addComment}
+										postComment={props.postComment}
 										dishId={props.dishshow.id}
 						/>
 					</div>
