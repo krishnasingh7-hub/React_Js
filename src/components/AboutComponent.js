@@ -1,8 +1,9 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-
+import { Fade , Stagger } from 'react-animation-components';
 
 const RenderLeader = ({Leader}) =>{
   
@@ -27,9 +28,25 @@ const RenderLeader = ({Leader}) =>{
 function About(props) {
 
     const leaders = props.leaders.leaders.map((leader) => {
-        return (
-            <p> <RenderLeader Leader={leader} /> </p>
-        );
+
+        if (props.leaders.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else{
+            return (
+                <Fade in>
+                    <p> <RenderLeader Leader={leader} /> </p>
+                </Fade>             
+            );
+
+        }
+
     });
 
     return(
@@ -82,16 +99,22 @@ function About(props) {
                     </Card>
                 </div>
             </div>
+        
             <div className="row row-content">
-                <div className="col-12">
-                    <h2>Corporate Leadership</h2>
-                </div>
-                <div className="col-12">
-                    <Media list>
-                        {leaders}
-                    </Media>
-                </div>
-            </div>
+                        <div className="col-12">
+                            <h2>Corporate Leadership</h2>
+                        </div>
+                        <div className="col-12">
+                            <Media list>
+                                <Stagger in>
+                                    {leaders}
+                                </Stagger>
+                                
+                            </Media>
+                        </div>
+            </div>   
+        
+     
         </div>
     );
 }
